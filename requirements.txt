@@ -2,3 +2,5 @@ streamlit
 joblib
 scikit-learn
 hpelm
+numpy
+pandas
