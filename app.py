@@ -1,6 +1,6 @@
-import streamlit as st
-import numpy as np
-import joblib
+from elm_model import ELMClassifier
+import joblib, streamlit as st, numpy as np
+
 
 # ==============================
 # Load model dan encoder
