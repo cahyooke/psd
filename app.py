@@ -1,11 +1,8 @@
-import joblib
 import streamlit as st
-from hpelm import ELM  # penting! agar class dikenali sebelum load
+import joblib
+from hpelm import ELM  # ini wajib agar class dikenali
 
-
-# ==============================
-# Load model dan encoder
-# ==============================
+# Baru load model
 elm = joblib.load("model_elm_heart.joblib")
 encoder = joblib.load("encoder_elm_heart.joblib")
 
