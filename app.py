@@ -1,8 +1,34 @@
-import streamlit as st
+import numpy as np
 import joblib
-from hpelm import ELM  # ini wajib agar class dikenali
+import streamlit as st
 
-# Baru load model
+# --- Tambahkan ulang class ELMClassifier ---
+def sigmoid_activation(x):
+    return 1 / (1 + np.exp(-x))
+
+class ELMClassifier:
+    def __init__(self, input_size, hidden_size, activation=sigmoid_activation, random_state=None):
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.activation = activation
+        self.random_state = random_state
+
+        if self.random_state is not None:
+            np.random.seed(self.random_state)
+
+        self.input_weights = np.random.randn(self.input_size, self.hidden_size)
+        self.bias = np.random.randn(self.hidden_size)
+
+    def fit(self, X, y):
+        H = self.activation(np.dot(X, self.input_weights) + self.bias)
+        self.output_weights = np.dot(np.linalg.pinv(H), y)
+
+    def predict(self, X):
+        H = self.activation(np.dot(X, self.input_weights) + self.bias)
+        output = np.dot(H, self.output_weights)
+        return np.argmax(output, axis=1)
+
+# --- Load model & encoder ---
 elm = joblib.load("model_elm_heart.joblib")
 encoder = joblib.load("encoder_elm_heart.joblib")
 
