@@ -1,5 +1,6 @@
-from elm_model import ELMClassifier
-import joblib, streamlit as st, numpy as np
+import joblib
+import streamlit as st
+from hpelm import ELM  # penting! agar class dikenali sebelum load
 
 
 # ==============================
