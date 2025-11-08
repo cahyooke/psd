@@ -59,12 +59,15 @@ sex_val = 1 if sex == "Laki-laki" else 0
 X_input = np.array([[age, sex_val, cp, trestbps, chol, fbs, restecg,
                      thalach, exang, oldpeak, slope, ca, thal]])
 
-# === Prediksi ===
-if st.button("Prediksi"):
-    pred = elm.predict(X_input)
-    hasil = encoder.inverse_transform(pred.reshape(-1, 1))[0][0]
+# Prediksi
+pred = model.predict(data_input_scaled)
 
-    if hasil == 1:
-        st.error("⚠️ Pasien **berisiko terkena penyakit jantung.**")
-    else:
-        st.success("✅ Pasien **tidak berisiko** terkena penyakit jantung.")
+# Ubah ke label (Ya/Tidak)
+hasil = encoder.inverse_transform(pred.reshape(-1, 1))[0]
+
+# Tampilkan hasil
+if hasil == '1' or hasil.lower() in ['ya', 'positive', 'risk']:
+    st.error("⚠️ Pasien berisiko terkena penyakit jantung.")
+else:
+    st.success("✅ Pasien tidak berisiko terkena penyakit jantung.")
+
